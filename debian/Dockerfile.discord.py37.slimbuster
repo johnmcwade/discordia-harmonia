@@ -1,0 +1,23 @@
+FROM python:3.7-slim-buster
+
+LABEL description="A foundation for a basic discord.py bot (or API client)"
+LABEL maintainer="John McWade <jmcwade@protonmail.com>"
+
+# If voice capabilities are not important, then it is safe to zap
+#   libffi-dev, libnacl-dev, and python-dev below.
+# vim-tiny is optional. I just like having *something* on there to
+#   write files with besides ex.
+RUN apt update && apt install --assume-yes --no-install-recommends \
+        libffi-dev \
+        libnacl-dev \
+        python3-dev \
+        vim-tiny \
+        && rm -r /var/lib/apt/lists/*
+
+# To install discord.py without voice, remove the '[voice]' suffix below
+#   so it only reads 'discord.py'
+# dotenv is optional but nice for bot tokens.
+RUN python3 -m pip install --upgrade --upgrade-strategy only-if-needed \
+        discord.py[voice] \
+        python-dotenv 
+
