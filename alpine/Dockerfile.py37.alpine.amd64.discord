@@ -1,0 +1,11 @@
+FROM python:3.7-alpine@sha256:7eb0834844428f3dae2eb81208b23445018cfd615404a56fecfe798de8f76394
+
+LABEL maintainer="John R McWade <jmcwade@protonmail.com"
+
+LABEL description="Python3.7-alpine with discord.py (voice not enabled) for x86_64"
+
+RUN apk update && apk add gcc musl-dev
+
+RUN pip install discord.py
+
+RUN apk del gcc musl-dev
